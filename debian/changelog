@@ -2,6 +2,7 @@ python-pbr (1.10.0-0ubuntu1) UNRELEASED; urgency=medium
 
   * d/gbp.conf: Update branch to ubuntu/newton.
   * New upstream release for OpenStack Newton.
+  * d/p/no-u-string-for-python-3.2.patch: Rebased.
 
  -- David Della Vecchia <ddv@canonical.com>  Wed, 21 Sep 2016 12:24:58 -0400
 
