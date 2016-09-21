@@ -1,5 +1,3 @@
-# vim: tabstop=4 shiftwidth=4 softtabstop=4
-
 # Copyright 2013 Hewlett-Packard Development Company, L.P.
 # All Rights Reserved.
 #
@@ -50,6 +48,25 @@ class FilesConfig(base.BaseConfig):
         self.config['data_files'] = self.data_files
         super(FilesConfig, self).save()
 
+    def expand_globs(self):
+        finished = []
+        for line in self.data_files.split("\n"):
+            if line.rstrip().endswith('*') and '=' in line:
+                (target, source_glob) = line.split('=')
+                source_prefix = source_glob.strip()[:-1]
+                target = target.strip()
+                if not target.endswith(os.path.sep):
+                    target += os.path.sep
+                for (dirpath, dirnames, fnames) in os.walk(source_prefix):
+                    finished.append(
+                        "%s = " % dirpath.replace(source_prefix, target))
+                    finished.extend(
+                        [" %s" % os.path.join(dirpath, f) for f in fnames])
+            else:
+                finished.append(line)
+
+        self.data_files = "\n".join(finished)
+
     def add_man_path(self, man_path):
         self.data_files = "%s\n%s =" % (self.data_files, man_path)
 
@@ -67,9 +84,15 @@ class FilesConfig(base.BaseConfig):
         return man_sections
 
     def hook(self):
-        package = self.config.get('packages', self.name).strip()
-        if os.path.isdir(package):
-            self.config['packages'] = find_package.smart_find_packages(package)
+        packages = self.config.get('packages', self.name).strip()
+        expanded = []
+        for pkg in packages.split("\n"):
+            if os.path.isdir(pkg.strip()):
+                expanded.append(find_package.smart_find_packages(pkg.strip()))
+
+        self.config['packages'] = "\n".join(expanded)
+
+        self.expand_globs()
 
         if 'manpages' in self.pbr_config:
             man_sections = self.get_man_sections()
