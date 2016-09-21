@@ -1,9 +1,6 @@
 #!/usr/bin/make -f
 
-PYTHONS:=$(shell pyversions -vr)
-PYTHON3S:=$(shell py3versions -vr)
-
-UPSTREAM_GIT := https://github.com/openstack-dev/pbr.git
+UPSTREAM_GIT = git://github.com/openstack-dev/pbr.git
 include /usr/share/openstack-pkg-tools/pkgos.make
 
 export OSLO_PACKAGE_VERSION=$(VERSION)
@@ -19,16 +16,12 @@ override_dh_clean:
 	rm -rf .testrepository build __pycache__
 
 override_dh_auto_install:
-	set -e && for pyvers in $(PYTHONS); do \
-		python$$pyvers setup.py install --install-layout=deb \
-			--root $(CURDIR)/debian/python-pbr; \
-	done
+	python setup.py install --install-layout=deb \
+		--root $(CURDIR)/debian/python-pbr
 	mv $(CURDIR)/debian/python-pbr/usr/bin/pbr $(CURDIR)/debian/python-pbr/usr/bin/python2-pbr
-	set -e && for pyvers in $(PYTHON3S); do \
-		python$$pyvers setup.py install --install-layout=deb \
-			--root $(CURDIR)/debian/python3-pbr; \
-		rm -rf $(CURDIR)/debian/python3-pbr/usr/lib/python3/dist-packages/pbr/tests ; \
-	done
+	set -e; python3 setup.py install --install-layout=deb \
+		--root $(CURDIR)/debian/python3-pbr
+	rm -rf $(CURDIR)/debian/python3-pbr/usr/lib/python3/dist-packages/pbr/tests
 	mv $(CURDIR)/debian/python3-pbr/usr/bin/pbr $(CURDIR)/debian/python3-pbr/usr/bin/python3-pbr
 
 override_dh_python3:

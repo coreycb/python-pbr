@@ -40,8 +40,7 @@ XS-Testsuite: autopkgtest
 
 Package: python-pbr
 Architecture: all
-Depends: python-pkg-resources,
-         python-six (>= 1.9.0),
+Depends: python-six (>= 1.9.0),
          ${misc:Depends},
          ${python:Depends},
 Recommends: ${python:Recommends},
@@ -70,8 +69,7 @@ Description: inject useful and sensible default behaviors into setuptools - Pyth
 
 Package: python3-pbr
 Architecture: all
-Depends: python3-pkg-resources,
-         python3-six (>= 1.9.0),
+Depends: python3-six (>= 1.9.0),
          ${misc:Depends},
          ${python3:Depends},
 Recommends: ${python3:Recommends},

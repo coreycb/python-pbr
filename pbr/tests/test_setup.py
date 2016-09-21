@@ -19,6 +19,7 @@ from __future__ import print_function
 import os
 import sys
 import tempfile
+import six
 
 try:
     import cStringIO as io
@@ -28,6 +29,7 @@ except ImportError:
     BytesIO = io.BytesIO
 
 import fixtures
+import testscenarios
 
 from pbr import git
 from pbr import options
@@ -144,10 +146,10 @@ class GitLogsTest(base.BaseTestCase):
             self.assertNotIn('Merge "', changelog_contents)
 
     def test_generate_authors(self):
-        author_old = u"Foo Foo <email@foo.com>"
-        author_new = u"Bar Bar <email@bar.com>"
-        co_author = u"Foo Bar <foo@bar.com>"
-        co_author_by = u"Co-authored-by: " + co_author
+        author_old = six.u("Foo Foo <email@foo.com>")
+        author_new = six.u("Bar Bar <email@bar.com>")
+        co_author = six.u("Foo Bar <foo@bar.com>")
+        co_author_by = six.u("Co-authored-by: ") + co_author
 
         git_log_cmd = (
             "git --git-dir=%s log --format=%%aN <%%aE>"
@@ -423,3 +425,7 @@ class ParseDependencyLinksTest(base.BaseTestCase):
         self.assertEqual(
             ["git://foo.com/zipball#egg=bar"],
             packaging.parse_dependency_links([self.tmp_file]))
+
+
+def load_tests(loader, in_tests, pattern):
+    return testscenarios.load_tests_apply_scenarios(loader, in_tests, pattern)
