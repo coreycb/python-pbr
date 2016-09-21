@@ -5,6 +5,7 @@ Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: PKG OpenStack <openstack-devel@lists.alioth.debian.org>
 Uploaders: Thomas Goirand <zigo@debian.org>,
            Prach Pongpanich <prachpub@gmail.com>,
+           David Della Vecchia <ddv@canonical.com>,
 Build-Depends: debhelper (>= 9),
                dh-python,
                git,
