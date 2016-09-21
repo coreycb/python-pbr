@@ -1,4 +1,4 @@
-python-pbr (1.10.0-0ubuntu1) UNRELEASED; urgency=medium
+python-pbr (1.10.0-0ubuntu1) yakkety; urgency=medium
 
   [ David Della Vecchia ]
   * d/gbp.conf: Update branch to ubuntu/newton.
