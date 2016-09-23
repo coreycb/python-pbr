@@ -1,3 +1,9 @@
+python-pbr (1.10.0-0ubuntu2) UNRELEASED; urgency=medium
+
+  * d/control.orig: Dropped, not needed.
+
+ -- Corey Bryant <corey.bryant@canonical.com>  Fri, 23 Sep 2016 09:07:09 -0400
+
 python-pbr (1.10.0-0ubuntu1) yakkety; urgency=medium
 
   [ David Della Vecchia ]
