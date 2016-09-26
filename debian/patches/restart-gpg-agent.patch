@@ -1,0 +1,10 @@
+--- a/pbr/tests/test_packaging.py
++++ b/pbr/tests/test_packaging.py
+@@ -81,6 +81,7 @@
+         base._run_cmd(['git', 'init', '.'], self._basedir)
+         base._config_git()
+         base._run_cmd(['git', 'add', '.'], self._basedir)
++        #base._run_cmd(['killall', 'gpg-agent'], self._basedir)
+ 
+     def commit(self, message_content='test commit'):
+         files = len(os.listdir(self._basedir))
